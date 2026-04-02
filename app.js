@@ -2,10 +2,10 @@ const { useState } = React;
 
 // Cards
 const SUIT = {
-  SPADE: { name: "Spade" },
-  HEART: { name: "Heart" },
-  DIAMOND: { name: "Diamond" },
-  CLUB: { name: "Club" },
+  SPADE: { name: "Spades" },
+  HEART: { name: "Hearts" },
+  DIAMOND: { name: "Diamonds" },
+  CLUB: { name: "Clubs" },
 };
 const NUMBER = {
   ACE: { name: "A", attack: 1 },
@@ -24,7 +24,6 @@ const NUMBER = {
 };
 
 function App() {
-  const [count, setCount] = useState(0);
 
   /// STATE ////
 
@@ -44,6 +43,7 @@ function App() {
   const [deck, setDeck] = useState([]);
   const [discardPile, setDiscardPile] = useState([]);
   const [enemies, setEnemies] = useState([]);
+  const [currentEnemy, setCurrentEnemy] = useState(undefined);
 
   const [enemyHealth, setEnemyHealth] = useState(0);
   const [shield, setShield] = useState(0);
@@ -99,28 +99,51 @@ function App() {
       { number: NUMBER.KING, suit: SUIT.CLUB },
     ];
     shuffle(kings)
-    console.log(startingDeck, kings);
     setEnemies([...jacks, ...queens, ...kings]);
+  }
+
+  const dealHands = () => {
+
+  }
+
+  const startBattle = () => {
+    setCurrentEnemy(enemies[0]);
+    setEnemies(enemies[1:]);
   }
 
   //// SETUP ////
 
-  // initializeDecks();
-  console.log(deck, enemies);
+  initializeDecks();
+  dealHands();
 
   return (
     <div className="container">
       <div className="card">
-        <h1>React JSX No-Build GitHub Pages</h1>
-        <p>Counter: {count}</p>
+        <h1>Regicide</h1>
         <button
-          onClick={() => initializeDecks()}
+          onClick={() => startBattle()}
         >
-          "Start"
+          Start
         </button>
         {enemies.map(enemy => (
           <p>{`${enemy.number.name} of ${enemy.suit.name}`}</p>
         ))}
+        {currentEnemy && (
+          <div>
+            <p>{`${currentEnemy.number.name} of ${currentEnemy.suit.name}`}</p>
+          </div>
+        )}
+        <div>
+          <p>Stats</p>
+          <p>{`Deck: ${deck.length}`}</p>
+          <p>{`Discard: ${discardPile.length}`}</p>
+          <p>{`Enemies remaining: ${enemies.length}`}</p>
+          <p>{`Enemy health: ${enemyHealth}`}</p>
+          <p>{`Shield: ${shield}`}</p>
+        </div>
+        <div>
+          <p>Hand</p>
+        </div>
       </div>
     </div>
   );
