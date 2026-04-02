@@ -255,7 +255,12 @@ function App() {
         )}
         {phase === PHASE.REPLENISH && (
           <div>
-            hi
+            <p>Replenishment</p>
+            {checkingReplenishment && (
+              <button onClick={() => checkReplenishment()}>
+                Check replenishment
+              </button>
+            )}
           </div>
         )}
         <div>
