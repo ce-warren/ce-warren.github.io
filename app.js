@@ -139,6 +139,7 @@ function App() {
 
   const isValidCardSelection = card => {
     const currentSelectedSum = selectedCards.reduce((acc, curr) => acc.attack + curr.attack, 0);
+    console.log(card, currentSelectedSum);
     return currentSelectedSum + card.attack <= 10;
   }
 
@@ -203,7 +204,16 @@ function App() {
                   />
                 </button>
               ) : (
-                <Card card={card} />
+                <button
+                  onClick={() => ()}
+                  disabled={true}
+                >
+                  <Card
+                    card={card}
+                    selectable={false}
+                    selected={false}
+                  />
+                </button>
               )
           ))}
         </div>
