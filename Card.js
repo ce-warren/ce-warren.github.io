@@ -8,7 +8,7 @@ function Card({ card, selectable , selected }) {
       borderRadius: "8px",
       backgroundColor: "#fff"
     }}>
-      <p>{`${selected ? '[ ] ' : ''}${card.number.name} of ${card.suit.name}${selected ? ' (selected)' : ''}`}</p>
+      <p>{`${selectable ? '[ ] ' : ''}${card.number.name} of ${card.suit.name}${selected ? ' (selected)' : ''}`}</p>
     </div>
   );
 }

@@ -195,7 +195,7 @@ function App() {
               ? (
                 <button
                   onClick={() => {setSelectedCards([...selectedCards, card])}}
-                  
+                  disabled={selectedCards.includes(card)}
                 >
                   <Card
                     card={card}
