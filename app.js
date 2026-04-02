@@ -139,7 +139,7 @@ function App() {
 
   const isValidCardSelection = card => {
     const currentSelectedSum = selectedCards.reduce((acc, curr) => acc.attack + curr.attack, 0);
-    console.log(currentSelectedSum + card.number.attack, currentSelectedSum + card.number.attack <= 10)
+    console.log(currentSelectedSum, card.number.attack, currentSelectedSum + card.number.attack <= 10)
     return currentSelectedSum + card.number.attack <= 10;
   }
 
@@ -196,7 +196,7 @@ function App() {
                 <button
                   onClick={() => {
                     if (selectedCards.includes(card)) {
-                      setSelectedCards(selectedCards.filter(selectedCard => selectedCards != card))
+                      setSelectedCards(selectedCards.filter(selectedCard => selectedCard != card))
                     }
                     else {
                       setSelectedCards([...selectedCards, card])
