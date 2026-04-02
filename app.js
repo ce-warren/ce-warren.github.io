@@ -139,6 +139,7 @@ function App() {
 
   const isValidCardSelection = card => {
     const currentSelectedSum = selectedCards.reduce((acc, curr) => acc.attack + curr.attack, 0);
+    console.log(currentSelectedSum + card.number.attack, currentSelectedSum + card.number.attack <= 10)
     return currentSelectedSum + card.number.attack <= 10;
   }
 
@@ -201,7 +202,7 @@ function App() {
                       setSelectedCards([...selectedCards, card])
                     }
                   }}
-                  disabled={!isValidCardSelection(card)}
+                  disabled={!selectedCards.includes(card) && !isValidCardSelection(card)}
                 >
                   <Card
                     card={card}
