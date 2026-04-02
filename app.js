@@ -253,32 +253,22 @@ function App() {
             <Card card={currentEnemy} />
           </div>
         )}
-        {phase === PHASE.REPLENISH && (
+        
+        {phase === PHASE.ATTACK && (
           <div>
-            <p>Replenishment</p>
-            {checkingReplenishment && (
-              <button onClick={() => checkReplenishment()}>
-                Check replenishment
-              </button>
-            )}
-            {restoreAvailable && (
-              <button onClick={() => retoreFromDiscard()}>
-                {`Restore ${getAttackValue()} cards`}
-              </button>
-            )}
-            {!restoreAvailable && drawAvailable (
-              <button onClick={() => retoreFromDiscard()}>
-                Begin draw
-              </button>
-            )}
-            {!restoreAvailable && !drawAvailable (
-              <button onClick={() => endReplenishment()}>
-                No replenishments available
-              </button>
-            )}
+           <p>Attack</p>
           <div>
         )}
-        
+        {phase === PHASE.REPLENISH || phase === PHASE.ATTACK || phase === PHASE.DEFEND && (
+          <div>
+            <p>Played cards</p>
+            {playCards.map(card => (
+              <Card
+                card={card}
+               />
+            ))}
+          <div>
+        )}
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
