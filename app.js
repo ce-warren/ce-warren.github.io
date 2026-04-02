@@ -253,7 +253,7 @@ function App() {
             <Card card={currentEnemy} />
           </div>
         )}
-        {phase === PHASE.PLAY && (
+        {phase === PHASE.REPLENISH && (
           <div>
             hi
           </div>

@@ -7,8 +7,8 @@ function Card({ card, selectable = false , selected = false }) {
       margin: "0.5rem 0",
       borderRadius: "8px",
       backgroundColor: "#fff",
-      width: "150px",
-      height: "150px",
+      width: "100px",
+      height: "120px",
       display: "inline-block"
     }}>
       <p>{`${selectable ? '[ ] ' : ''}${card.number.name} of ${card.suit.name}${selected ? ' (selected)' : ''}`}</p>
