@@ -1,4 +1,4 @@
-const { useState } = React;
+const { useEffect, useState } = React;
 
 // Cards
 const SUIT = {
@@ -113,8 +113,10 @@ function App() {
 
   //// SETUP ////
 
-  initializeDecks();
-  dealHands();
+  useEffect(() => {
+    initializeDecks();
+    dealHands();
+  }, []);
 
   return (
     <div className="container">
