@@ -137,6 +137,9 @@ function App() {
     dealInitialHands();
   }, []);
 
+  console.log(handNorth);
+  console.log(HAND_TRACKER[currentHand]);
+
   return (
     <div className="container">
       <div className="card">
