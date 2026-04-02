@@ -248,27 +248,7 @@ function App() {
           <p>{`Enemy health: ${enemyHealth}`}</p>
           <p>{`Shield: ${shield}`}</p>
         </div>
-        {currentEnemy && (
-          <div>
-            <Card card={currentEnemy} />
-          </div>
-        )}
         
-        {phase === PHASE.ATTACK && (
-          <div>
-           <p>Attack</p>
-          <div>
-        )}
-        {phase === PHASE.REPLENISH || phase === PHASE.ATTACK || phase === PHASE.DEFEND && (
-          <div>
-            <p>Played cards</p>
-            {playCards.map(card => (
-              <Card
-                card={card}
-               />
-            ))}
-          <div>
-        )}
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
