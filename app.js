@@ -60,7 +60,7 @@ function App() {
   const [enemyHealth, setEnemyHealth] = useState(0);
   const [shield, setShield] = useState(0);
 
-  const [checkingReplenishment, setCheckingReplenishment] = useState(false);
+  const [checkingReplenishment, setCheckingReplenishment] = useState(true);
   const [restoreAvailable, setRestoreAvailable] = useState(false);
   const [drawAvailable, setDrawAvailable] = useState(false);
   const [drawing, setDrawing] = useState(false);
@@ -275,7 +275,7 @@ function App() {
                 Begin draw
               </button>
             )}
-            {!restoreAvailable && !drawAvailable && (
+            {!checkingReplenishment && !restoreAvailable && !drawAvailable && (
               <button onClick={() => endReplenishment()}>
                 No replenishments available
               </button>
