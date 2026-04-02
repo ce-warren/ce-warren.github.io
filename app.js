@@ -253,13 +253,9 @@ function App() {
             <Card card={currentEnemy} />
           </div>
         )}
-        {phase === PHASE.REPLENISH && (
-          <div>
-            <p>Replenishment</p>
-            
-          <div>
-        )}
-
+        <div>
+          hi
+        </div>
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
