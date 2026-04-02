@@ -83,22 +83,22 @@ function App() {
     setDeck(shuffle(startingNumbers));
 
     const jacks = [
-      { number: NUMBER.JACK: suit: SUIT.SPADE },
-      { number: NUMBER.JACK: suit: SUIT.HEART },
-      { number: NUMBER.JACK: suit: SUIT.DIAMOND },
-      { number: NUMBER.JACK: suit: SUIT.CLUB },
+      { number: NUMBER.JACK, suit: SUIT.SPADE },
+      { number: NUMBER.JACK, suit: SUIT.HEART },
+      { number: NUMBER.JACK, suit: SUIT.DIAMOND },
+      { number: NUMBER.JACK, suit: SUIT.CLUB },
     ];
     const queens = [
-      { number: NUMBER.QUEEN: suit: SUIT.SPADE },
-      { number: NUMBER.QUEEN: suit: SUIT.HEART },
-      { number: NUMBER.QUEEN: suit: SUIT.DIAMOND },
-      { number: NUMBER.QUEEN: suit: SUIT.CLUB },
+      { number: NUMBER.QUEEN, suit: SUIT.SPADE },
+      { number: NUMBER.QUEEN, suit: SUIT.HEART },
+      { number: NUMBER.QUEEN, suit: SUIT.DIAMOND },
+      { number: NUMBER.QUEEN, suit: SUIT.CLUB },
     ];
     const kings = [
-      { number: NUMBER.KING: suit: SUIT.SPADE },
-      { number: NUMBER.KING: suit: SUIT.HEART },
-      { number: NUMBER.KING: suit: SUIT.DIAMOND },
-      { number: NUMBER.KING: suit: SUIT.CLUB },
+      { number: NUMBER.KING, suit: SUIT.SPADE },
+      { number: NUMBER.KING, suit: SUIT.HEART },
+      { number: NUMBER.KING, suit: SUIT.DIAMOND },
+      { number: NUMBER.KING, suit: SUIT.CLUB },
     ];
     setEnemies([...shuffle(jacks), ...shuffle(queens), ...shuffle(kings)]);
   }
