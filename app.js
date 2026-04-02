@@ -1,6 +1,7 @@
 const { useEffect, useState } = React;
 
-// Cards
+//// Cards ////
+
 const SUIT = {
   SPADE: { name: "Spades" },
   HEART: { name: "Hearts" },
@@ -126,6 +127,7 @@ function App() {
     setCurrentEnemy(newEnemy);
     setEnemies(enemies.slice(1));
     setEnemyHealth(newEnemy.number.attack);
+    setNewBattleAvailable(false);
   }
 
   //// SETUP ////
@@ -133,9 +135,6 @@ function App() {
   useEffect(() => {
     initializeDecks();
   }, []);
-
-  console.log(handNorth);
-  console.log(HAND_TRACKER[currentHand]);
 
   return (
     <div className="container">
@@ -175,6 +174,7 @@ function App() {
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
+            <Card card={card} />
             <p>{`${card.number.name} of ${card.suit.name}`}</p>
           ))}
         </div>
