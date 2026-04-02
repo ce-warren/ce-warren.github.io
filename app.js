@@ -248,6 +248,11 @@ function App() {
           <p>{`Enemy health: ${enemyHealth}`}</p>
           <p>{`Shield: ${shield}`}</p>
         </div>
+        {currentEnemy && (
+          <div>
+            <Card card={currentEnemy} />
+          </div>
+        )}
         
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
