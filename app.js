@@ -114,7 +114,7 @@ function App() {
         <h1>React JSX No-Build GitHub Pages</h1>
         <p>Counter: {count}</p>
         <button
-          onClick={() => initializeDecks();}
+          onClick={() => initializeDecks()}
         >
           Start
         </button>
