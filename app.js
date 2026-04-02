@@ -49,11 +49,11 @@ function App() {
 
   // Functions
   const shuffle = cards = {
-    var arr = [];
-    for (var i = 0; i < n; i++) {
-      arr.push(cards[i], cards[i + n]);
-    }
-    return arr;
+    // var arr = [];
+    // for (var i = 0; i < n; i++) {
+    //   arr.push(cards[i], cards[i + n]);
+    // }
+    // return arr;
   };
 
   const initializeDecks = () = {
