@@ -99,30 +99,28 @@ function App() {
       { number: NUMBER.KING, suit: SUIT.CLUB },
     ];
     shuffle(kings)
+    console.log(startingDeck, kings);
     setEnemies([...jacks, ...queens, ...kings]);
   }
 
   //// SETUP ////
 
-  initializeDecks();
+  // initializeDecks();
   console.log(deck, enemies);
-
-  // // Example logic
-  // function createArr(cards, n) {
-  //   let arr = [];
-  //   for (let i = 0; i < n; i++) {
-  //     arr.push(cards[i], cards[i + n]);
-  //   }
-  //   return arr;
-  // }
 
   return (
     <div className="container">
       <div className="card">
         <h1>React JSX No-Build GitHub Pages</h1>
         <p>Counter: {count}</p>
-        <button onClick={() => setCount(count + 1)}>Increment</button>
-        <p>Example array: {result.join(', ')}</p>
+        <button
+          onClick={() => initializeDecks();}
+        >
+          Start
+        </button>
+        {enemies.map(enemy => (
+          <p>{enemy}</p>
+        ))}
       </div>
     </div>
   );
