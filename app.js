@@ -48,7 +48,8 @@ function App() {
   const [enemyHealth, setEnemyHealth] = useState(0);
   const [shield, setShield] = useState(0);
 
-  const [newBattleAvailable, setNewBattleAvailable] = useState(true);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [newBattleAvailable, setNewBattleAvailable] = useState(false);
 
   //// FUNCTIONS ////
 
@@ -138,7 +139,6 @@ function App() {
 
   useEffect(() => {
     initializeDecks();
-    dealInitialHands();
   }, []);
 
   console.log(handNorth);
@@ -148,6 +148,16 @@ function App() {
     <div className="container">
       <div className="card">
         <h1>Regicide</h1>
+        {!gameStarted && (
+          <button
+            onClick={() => {
+              dealInitialHands();
+              setNewBattleAvailable(true);
+            }}
+          >
+            Start
+          </button>
+        )}
         {newBattleAvailable && (
           <button
             onClick={() => startBattle()}
