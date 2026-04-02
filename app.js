@@ -253,6 +253,31 @@ function App() {
             <Card card={currentEnemy} />
           </div>
         )}
+        {phase === PHASE.REPLENISH && (
+          <div>
+            <p>Replenishment</p>
+            {checkingReplenishment && (
+              <button onClick={() => checkReplenishment()}>
+                Check replenishment
+              </button>
+            )}
+            {restoreAvailable && (
+              <button onClick={() => retoreFromDiscard()}>
+                {`Restore ${getAttackValue()} cards`}
+              </button>
+            )}
+            {!restoreAvailable && drawAvailable (
+              <button onClick={() => retoreFromDiscard()}>
+                Begin draw
+              </button>
+            )}
+            {!restoreAvailable && !drawAvailable (
+              <button onClick={() => endReplenishment()}>
+                No replenishments available
+              </button>
+            )}
+          <div>
+        )}
         
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
