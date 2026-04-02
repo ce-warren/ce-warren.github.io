@@ -151,7 +151,7 @@ function App() {
     setPhase(PHASE.REPLENISH);
   }
 
-  const yield = () => {
+  const yieldTurn = () => {
     setSelectedCards([]);
     setPhase(PHASE.DEFEND)
   }
@@ -255,7 +255,7 @@ function App() {
             >
               Play
             </button>
-            <button onClick={() => yield()} >
+            <button onClick={() => yieldTurn()} >
               Yield
             </button>
           </div>
