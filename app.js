@@ -105,26 +105,19 @@ function App() {
     setEnemies([...jacks, ...queens, ...kings]);
   }
 
-  const deal = handIndex => {
-    console.log('dealing')
-    if (deck.length === 0) {
-      console.log('cancelling')
-      return
+  const deal = (handIndex, numberCards = 1) => {
+    if (deck.length < numberCards) {
+      console.error("Error in deal: not enough cards in deck");
+      return;
     }
-    const newCard = deck[0];
-    console.log(newCard);
-    setDeck(deck.slice(1));
-    console.log([...HAND_TRACKER[handIndex].hand, newCard]);
-    HAND_TRACKER[handIndex].setHand([...HAND_TRACKER[handIndex].hand, newCard]);
+    const newCards = deck.slice(0, numberCards);
+    setDeck(deck.slice(numberCards));
+    HAND_TRACKER[handIndex].setHand([...HAND_TRACKER[handIndex].hand, ...newCards]);
   }
 
   const dealInitialHands = () => {
     HAND_TRACKER.forEach((hand, index) => {
-      deal(index);
-      deal(index);
-      deal(index);
-      deal(index);
-      deal(index);
+      deal(index, 5);
     });
   }
 
@@ -153,6 +146,7 @@ function App() {
             onClick={() => {
               dealInitialHands();
               setNewBattleAvailable(true);
+              setGameStarted(true);
             }}
           >
             Start
@@ -162,7 +156,7 @@ function App() {
           <button
             onClick={() => startBattle()}
           >
-            Start
+            Start Battle
           </button>
         )}
         {!!currentEnemy && (
