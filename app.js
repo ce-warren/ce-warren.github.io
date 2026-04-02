@@ -77,7 +77,7 @@ function App() {
       [cards[currentIndex], cards[randomIndex]] = [
         cards[randomIndex], cards[currentIndex]];
     }
-  }
+  };
 
   const initializeDecks = () => {
     const startingNumbers = [NUMBER.ACE, NUMBER.TWO, NUMBER.THREE, NUMBER.FOUR, NUMBER.FIVE, NUMBER.SIX, NUMBER.SEVEN, NUMBER.EIGHT, NUMBER.NINE, NUMBER.TEN];
@@ -113,7 +113,7 @@ function App() {
     ];
     shuffle(kings)
     setEnemies([...jacks, ...queens, ...kings]);
-  }
+  };
 
   const deal = (handIndex, numberCards = 1) => {
     if (deck.length < numberCards) {
@@ -123,13 +123,13 @@ function App() {
     const newCards = deck.slice(0, numberCards);
     setDeck(deck.slice(numberCards));
     HAND_TRACKER[handIndex].setHand([...HAND_TRACKER[handIndex].hand, ...newCards]);
-  }
+  };
 
   const dealInitialHands = () => {
     HAND_TRACKER.forEach((hand, index) => {
       deal(index, 5);
     });
-  }
+  };
 
   const startBattle = () => {
     const newEnemy = enemies[0];
@@ -137,24 +137,24 @@ function App() {
     setEnemies(enemies.slice(1));
     setEnemyHealth(newEnemy.number.attack * 2);
     setNewBattleAvailable(false);
-  }
+  };
 
   const isValidCardSelection = card => {
     const currentSelectedSum = selectedCards.reduce((acc, curr) => acc + curr.number.attack, 0);
     return currentSelectedSum + card.number.attack <= 10;
-  }
+  };
 
   const playCards = () => {
     setPlayedCards(selectedCards);
     HAND_TRACKER[currentHand].setHand(HAND_TRACKER[currentHand].hand.filter(card => selectedCards.includes(card)));
     setSelectedCards([]);
     setPhase(PHASE.REPLENISH);
-  }
+  };
 
   const yieldTurn = () => {
     setSelectedCards([]);
     setPhase(PHASE.DEFEND)
-  }
+  };
 
   //// SETUP ////
 
@@ -200,21 +200,7 @@ function App() {
           <p>{`Enemy health: ${enemyHealth}`}</p>
           <p>{`Shield: ${shield}`}</p>
         </div>
-        {phase === PHASE.REPLENISH && (
-          <div>
-            <p>replenishing buttons</p>
-          <div>
-        )}
-        {(phase === PHASE.REPLENISH || phase === PHASE.ATTACK || phase === PHASE.DEFEND) && (
-          <div>
-            <p>Played cards</p>
-            {playCards.map(card => (
-              <Card
-                card={card}
-               />
-            ))}
-          <div>
-        )}
+        
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
@@ -255,7 +241,7 @@ function App() {
             >
               Play
             </button>
-            <button onClick={() => yieldTurn()} >
+            <button onClick={() => yieldTurn()}>
               Yield
             </button>
           </div>
