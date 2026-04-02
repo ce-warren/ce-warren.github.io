@@ -175,7 +175,6 @@ function App() {
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
             <Card card={card} />
-            <p>{`${card.number.name} of ${card.suit.name}`}</p>
           ))}
         </div>
       </div>
