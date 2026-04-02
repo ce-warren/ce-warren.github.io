@@ -112,7 +112,7 @@ function App() {
     shuffle(queens);
     const kings = [
       { number: NUMBER.KING, suit: SUIT.SPADES },
-      { number: NUMBER.KING, suit: SUIT.c },
+      { number: NUMBER.KING, suit: SUIT.HEARTS },
       { number: NUMBER.KING, suit: SUIT.DIAMONDS },
       { number: NUMBER.KING, suit: SUIT.CLUBS },
     ];
@@ -167,23 +167,23 @@ function App() {
   };
 
   const heartsActive = () => {
-    return getActiveSuits.includes(SUIT.HEARTS);
+    return getActiveSuits().includes(SUIT.HEARTS);
   };
 
   const diamondsActive = () => {
-    return getActiveSuits.includes(SUIT.DIAMONDS);
+    return getActiveSuits().includes(SUIT.DIAMONDS);
   };
 
   const clubsActive = () => {
-    return getActiveSuits.includes(SUIT.CLUBS);
+    return getActiveSuits().includes(SUIT.CLUBS);
   };
 
   const spadesActive = () => {
-    return getActiveSuits.includes(SUIT.SPADES);
+    return getActiveSuits().includes(SUIT.SPADES);
   };
 
   const getAttackValue = () => {
-    playedCards.reduce((acc, curr) => acc + curr.number.attack, 0);
+    return playedCards.reduce((acc, curr) => acc + curr.number.attack, 0);
   };
 
   const checkReplenishment = () => {
@@ -277,6 +277,19 @@ function App() {
                 No replenishments available
               </button>
             )}
+          </div>
+        )}
+        {phase === PHASE.ATTACK && (
+          <div>
+           <p>Attack</p>
+          </div>
+        )}
+        {(phase === PHASE.REPLENISH || phase === PHASE.ATTACK || phase === PHASE.DEFEND) && (
+          <div>
+            <p>Played cards</p>
+            {playedCards.map(card => (
+              <Card card={card} />
+            ))}
           </div>
         )}
         <div>
