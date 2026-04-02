@@ -162,7 +162,7 @@ function App() {
           <p>{`Shield: ${shield}`}</p>
         </div>
         <div>
-          <p>{Hand - ${HAND_TRACKER[currentHand].name}}</p>
+          <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
             <p>{`${card.number.name} of ${card.suit.name}`}</p>
           ))}
