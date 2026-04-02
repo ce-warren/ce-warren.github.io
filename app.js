@@ -139,7 +139,7 @@ function App() {
 
   const isValidCardSelection = card => {
     const currentSelectedSum = selectedCards.reduce((acc, curr) => acc.attack + curr.attack, 0);
-    console.log(card, currentSelectedSum, );
+    console.log(card, currentSelectedSum, currentSelectedSum + card.attack <= 10);
     return currentSelectedSum + card.attack <= 10;
   }
 
@@ -194,8 +194,15 @@ function App() {
             phase === PHASE.PLAY
               ? (
                 <button
-                  onClick={() => {setSelectedCards([...selectedCards, card])}}
-                  disabled={selectedCards.includes(card)}
+                  onClick={() => {
+                    if (selectedCards.includes(card)) {
+                      setSelectedCards(selectedCards.filter(selectedCard => selectedCards != card))
+                    }
+                    else {
+                      setSelectedCards([...selectedCards, card])
+                    }
+                  }}
+                  disabled={!isValidCardSelection(card)}
                 >
                   <Card
                     card={card}
