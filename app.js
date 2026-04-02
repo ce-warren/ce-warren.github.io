@@ -151,8 +151,9 @@ function App() {
 
   const playCards = () => {
     setPlayedCards(selectedCards);
-    HAND_TRACKER[currentHand].setHand(HAND_TRACKER[currentHand].hand.filter(card => selectedCards.includes(card)));
+    HAND_TRACKER[currentHand].setHand(HAND_TRACKER[currentHand].hand.filter(card => !selectedCards.includes(card)));
     setSelectedCards([]);
+    setCheckingReplenishment(true);
     setPhase(PHASE.REPLENISH);
   };
 
@@ -261,6 +262,21 @@ function App() {
                 Check replenishment
               </button>
             )}
+            {restoreAvailable && (
+              <button onClick={() => retoreFromDiscard()}>
+                {`Restore ${getAttackValue()} cards`}
+              </button>
+            )}
+            {!restoreAvailable && drawAvailable (
+              <button onClick={() => retoreFromDiscard()}>
+                Begin draw
+              </button>
+            )}
+            {!restoreAvailable && !drawAvailable (
+              <button onClick={() => endReplenishment()}>
+                No replenishments available
+              </button>
+            )}
           </div>
         )}
         <div>
@@ -300,6 +316,7 @@ function App() {
               onClick={() => {
                 setPhase(PHASE.REPLENISH);
               }}
+              disabled={selectedCards.length === 0}
             >
               Play
             </button>
