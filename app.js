@@ -3,10 +3,10 @@ const { useEffect, useState } = React;
 //// Cards ////
 
 const SUIT = {
-  SPADE: { name: "Spades" },
-  HEART: { name: "Hearts" },
-  DIAMOND: { name: "Diamonds" },
-  CLUB: { name: "Clubs" },
+  SPADES: { name: "Spades" },
+  HEARTS: { name: "Hearts" },
+  DIAMONDS: { name: "Diamonds" },
+  CLUBS: { name: "Clubs" },
 };
 const NUMBER = {
   ACE: { name: "A", attack: 1 },
@@ -60,6 +60,11 @@ function App() {
   const [enemyHealth, setEnemyHealth] = useState(0);
   const [shield, setShield] = useState(0);
 
+  const [checkingReplenishment, setCheckingReplenishment] = useState(false);
+  const [restoreAvailable, setRestoreAvailable] = useState(false);
+  const [drawAvailable, setDrawAvailable] = useState(false);
+  const [drawing, setDrawing] = useState(false);
+
   const [gameStarted, setGameStarted] = useState(false);
   const [phase, setPhase] = useState(PHASE.START);
   const [newBattleAvailable, setNewBattleAvailable] = useState(false);
@@ -83,33 +88,33 @@ function App() {
     const startingNumbers = [NUMBER.ACE, NUMBER.TWO, NUMBER.THREE, NUMBER.FOUR, NUMBER.FIVE, NUMBER.SIX, NUMBER.SEVEN, NUMBER.EIGHT, NUMBER.NINE, NUMBER.TEN];
     const startingDeck = [];
     startingNumbers.forEach(number => {
-      startingDeck.push({ number, suit: SUIT.SPADE });
-      startingDeck.push({ number, suit: SUIT.HEART });
-      startingDeck.push({ number, suit: SUIT.DIAMOND });
-      startingDeck.push({ number, suit: SUIT.CLUB });
+      startingDeck.push({ number, suit: SUIT.SPADES });
+      startingDeck.push({ number, suit: SUIT.HEARTS });
+      startingDeck.push({ number, suit: SUIT.DIAMONDS });
+      startingDeck.push({ number, suit: SUIT.CLUBS });
     });
     shuffle(startingDeck);
     setDeck(startingDeck);
 
     const jacks = [
-      { number: NUMBER.JACK, suit: SUIT.SPADE },
-      { number: NUMBER.JACK, suit: SUIT.HEART },
-      { number: NUMBER.JACK, suit: SUIT.DIAMOND },
-      { number: NUMBER.JACK, suit: SUIT.CLUB },
+      { number: NUMBER.JACK, suit: SUIT.SPADES },
+      { number: NUMBER.JACK, suit: SUIT.HEARTS },
+      { number: NUMBER.JACK, suit: SUIT.DIAMONDS },
+      { number: NUMBER.JACK, suit: SUIT.CLUBS },
     ];
     shuffle(jacks);
     const queens = [
-      { number: NUMBER.QUEEN, suit: SUIT.SPADE },
-      { number: NUMBER.QUEEN, suit: SUIT.HEART },
-      { number: NUMBER.QUEEN, suit: SUIT.DIAMOND },
-      { number: NUMBER.QUEEN, suit: SUIT.CLUB },
+      { number: NUMBER.QUEEN, suit: SUIT.SPADES },
+      { number: NUMBER.QUEEN, suit: SUIT.HEARTS },
+      { number: NUMBER.QUEEN, suit: SUIT.DIAMONDS },
+      { number: NUMBER.QUEEN, suit: SUIT.CLUBS },
     ];
     shuffle(queens);
     const kings = [
-      { number: NUMBER.KING, suit: SUIT.SPADE },
-      { number: NUMBER.KING, suit: SUIT.HEART },
-      { number: NUMBER.KING, suit: SUIT.DIAMOND },
-      { number: NUMBER.KING, suit: SUIT.CLUB },
+      { number: NUMBER.KING, suit: SUIT.SPADES },
+      { number: NUMBER.KING, suit: SUIT.c },
+      { number: NUMBER.KING, suit: SUIT.DIAMONDS },
+      { number: NUMBER.KING, suit: SUIT.CLUBS },
     ];
     shuffle(kings)
     setEnemies([...jacks, ...queens, ...kings]);
@@ -154,6 +159,54 @@ function App() {
   const yieldTurn = () => {
     setSelectedCards([]);
     setPhase(PHASE.DEFEND)
+  };
+
+  const getActiveSuits = () => {
+    return playedCards.map(card => card.suit).filter(suit => suit != currentEnemy.suit);
+  };
+
+  const heartsActive = () => {
+    return getActiveSuits.includes(SUIT.HEARTS);
+  };
+
+  const diamondsActive = () => {
+    return getActiveSuits.includes(SUIT.DIAMONDS);
+  };
+
+  const clubsActive = () => {
+    return getActiveSuits.includes(SUIT.CLUBS);
+  };
+
+  const spadesActive = () => {
+    return getActiveSuits.includes(SUIT.SPADES);
+  };
+
+  const getAttackValue = () => {
+    playedCards.reduce((acc, curr) => acc + curr.number.attack, 0);
+  };
+
+  const checkReplenishment = () => {
+    if (heartsActive()) {
+      setRestoreAvailable(true);
+    }
+    if (diamondsActive()) {
+      setDrawAvailable(true);
+    }
+    setCheckingReplenishment(false);
+  };
+
+  const retoreFromDiscard = () => {
+    // restore cards
+    setRestoreAvailable(false);
+  };
+
+  const drawFromDeck = () => {
+    // drawing phases?
+    setDrawAvailable(false);
+  };
+
+  const endReplenishment = () => {
+    setPhase(PHASE.ATTACK);
   };
 
   //// SETUP ////
@@ -202,7 +255,32 @@ function App() {
         )}
         {phase === PHASE.REPLENISH && (
           <div>
-            <p>replenishing buttons</p>
+            <p>Replenishment</p>
+            {checkingReplenishment && (
+              <button onClick={() => checkReplenishment()}>
+                Check replenishment
+              </button>
+            )}
+            {restoreAvailable && (
+              <button onClick={() => retoreFromDiscard()}>
+                {`Restore ${getAttackValue()} cards`}
+              </button>
+            )}
+            {!restoreAvailable && drawAvailable (
+              <button onClick={() => retoreFromDiscard()}>
+                Begin draw
+              </button>
+            )}
+            {!restoreAvailable && !drawAvailable (
+              <button onClick={() => endReplenishment()}>
+                End replenishment
+              </button>
+            )}
+          <div>
+        )}
+        {phase === PHASE.ATTACK && (
+          <div>
+           <p>Attack</p>
           <div>
         )}
         {phase === PHASE.REPLENISH || phase === PHASE.ATTACK || phase === PHASE.DEFEND && (
