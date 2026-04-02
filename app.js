@@ -8,19 +8,19 @@ const SUIT = {
   CLUB: { name: "Club" },
 };
 const NUMBER = {
-  ACE: { attack: 1 },
-  TWO: { attack: 2 },
-  THREE: { attack: 3 },
-  FOUR: { attack: 4 },
-  FIVE: { attack: 5 },
-  SIX: { attack: 6 },
-  SEVEN: { attack: 7 },
-  EIGHT: { attack: 8 },
-  NINE: { attack: 9 },
-  TEN: { attack: 10 },
-  JACK: { attack: 10 },
-  QUEEN: { attack: 15 },
-  KING: { attack: 20 },
+  ACE: { name: "A", attack: 1 },
+  TWO: { name: "2", attack: 2 },
+  THREE: { name: "3", attack: 3 },
+  FOUR: { name: "4", attack: 4 },
+  FIVE: { name: "5", attack: 5 },
+  SIX: { name: "6", attack: 6 },
+  SEVEN: { name: "7", attack: 7 },
+  EIGHT: { name: "8", attack: 8 },
+  NINE: { name: "9", attack: 9 },
+  TEN: { name: "10", attack: 10 },
+  JACK: { name: "J", attack: 10 },
+  QUEEN: { name: "Q", attack: 15 },
+  KING: { name: "K", attack: 20 },
 };
 
 function App() {
@@ -116,10 +116,10 @@ function App() {
         <button
           onClick={() => initializeDecks()}
         >
-          Start
+          "Start"
         </button>
         {enemies.map(enemy => (
-          <p>{enemy}</p>
+          <p>{`${enemy.number.name} of ${enemy.suit.name}`}</p>
         ))}
       </div>
     </div>
