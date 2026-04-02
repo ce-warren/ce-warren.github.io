@@ -49,7 +49,7 @@ function App() {
 
   // Functions
   const shuffle = (cards) = {
-    let currentIndex = cards.length;
+    var currentIndex = cards.length;
 
     while (currentIndex !== 0) {
 
