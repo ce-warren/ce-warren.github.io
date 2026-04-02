@@ -163,6 +163,7 @@ function App() {
   };
 
   const getActiveSuits = () => {
+    console.log(playedCards.map(card => card.suit).filter(suit => suit != currentEnemy.suit));
     return playedCards.map(card => card.suit).filter(suit => suit != currentEnemy.suit);
   };
 
@@ -188,9 +189,11 @@ function App() {
 
   const checkReplenishment = () => {
     if (heartsActive()) {
+      console.log('restore');
       setRestoreAvailable(true);
     }
     if (diamondsActive()) {
+      console.log('draw');
       setDrawAvailable(true);
     }
     setCheckingReplenishment(false);
