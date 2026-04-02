@@ -58,20 +58,6 @@ function App() {
     return arr;
   }
 
-  //// SETUP ////
-
-  initializeDecks();
-  console.log(deck, enemies);
-
-  // // Example logic
-  // function createArr(cards, n) {
-  //   let arr = [];
-  //   for (let i = 0; i < n; i++) {
-  //     arr.push(cards[i], cards[i + n]);
-  //   }
-  //   return arr;
-  // }
-
   const initializeDecks = () => {
     const startingNumbers = [NUMBER.ACE, NUMBER.TWO, NUMBER.THREE, NUMBER.FOUR, NUMBER.FIVE, NUMBER.SIX, NUMBER.SEVEN, NUMBER.EIGHT, NUMBER.NINE, NUMBER.TEN];
     startingNumbers.forEach(number => {
@@ -103,8 +89,19 @@ function App() {
     setEnemies([...shuffle(jacks), ...shuffle(queens), ...shuffle(kings)]);
   }
 
-  const cards = ['A','B','C','D','E','F'];
-  const result = createArr(cards, 3); // example usage
+  //// SETUP ////
+
+  initializeDecks();
+  console.log(deck, enemies);
+
+  // // Example logic
+  // function createArr(cards, n) {
+  //   let arr = [];
+  //   for (let i = 0; i < n; i++) {
+  //     arr.push(cards[i], cards[i + n]);
+  //   }
+  //   return arr;
+  // }
 
   return (
     <div className="container">
