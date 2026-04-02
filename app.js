@@ -24,6 +24,14 @@ const NUMBER = {
   KING: { name: "K", attack: 20 },
 };
 
+const PHASE = {
+  START: "START",
+  PLAY: "PLAY",
+  REPLENISH: "REPLENISH",
+  ATTACK: "ATTACK",
+  DEFEND: "DEFEND",
+};
+
 function App() {
 
   /// STATE ////
@@ -41,6 +49,8 @@ function App() {
     { name: "West", hand: handWest, setHand: setHandWest },
   ];
 
+  const [selectedCards, setSelectedCards] = useState([]);
+
   const [deck, setDeck] = useState([]);
   const [discardPile, setDiscardPile] = useState([]);
   const [enemies, setEnemies] = useState([]);
@@ -49,7 +59,7 @@ function App() {
   const [enemyHealth, setEnemyHealth] = useState(0);
   const [shield, setShield] = useState(0);
 
-  const [gameStarted, setGameStarted] = useState(false);
+  const [phase, setPhase] = useState(PHASE.START);
   const [newBattleAvailable, setNewBattleAvailable] = useState(false);
 
   //// FUNCTIONS ////
@@ -126,8 +136,17 @@ function App() {
     const newEnemy = enemies[0];
     setCurrentEnemy(newEnemy);
     setEnemies(enemies.slice(1));
-    setEnemyHealth(newEnemy.number.attack);
+    setEnemyHealth(newEnemy.number.attack * 2);
     setNewBattleAvailable(false);
+  }
+
+  const isValidCardSelection = card => {
+    const currentSelectedSum = selectedCards.reduce((acc, curr) => acc.attack, curr.attack, 0);
+    return currentSelectedSum + card.attack <= 10;
+  }
+
+  const playCards = () => {
+
   }
 
   //// SETUP ////
@@ -140,12 +159,12 @@ function App() {
     <div className="container">
       <div className="card">
         <h1>Regicide</h1>
-        {!gameStarted && (
+        {!phase === PHASE.START && (
           <button
             onClick={() => {
               dealInitialHands();
               setNewBattleAvailable(true);
-              setGameStarted(true);
+              setPhase(PHASE.PLAY);
             }}
           >
             Start
@@ -158,9 +177,9 @@ function App() {
             Start Battle
           </button>
         )}
-        {!!currentEnemy && (
+        {currentEnemy && (
           <div>
-            <p>{`${currentEnemy.number.name} of ${currentEnemy.suit.name}`}</p>
+            <Card card={currentEnemy} />
           </div>
         )}
         <div>
@@ -174,9 +193,39 @@ function App() {
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
-            <Card card={card} />
+            phase === PHASE.PLAY
+              ? (
+                <button
+                  onClick={() => {setSelectedCards([...selectedCards, card])}}
+                  disabled={selectedCards.contains(card) || !isValidCardSelection(card)}
+                >
+                  <Card
+                    card={card}
+                    selectable={true}
+                    selected={selectedCards.contains(card)}
+                  />
+                </button>
+              ) : (
+                <Card card={card} />
+              )
           ))}
         </div>
+        {phase === PHASE.PLAY && (
+          <div>
+            <button
+              onClick={() => {
+                setPhase(PHASE.REPLENISH);
+              }}
+            >
+              Play
+            </button>
+            <button
+              onClick={() => setPhase(PHASE.DEFEND)}
+            >
+              Yield
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

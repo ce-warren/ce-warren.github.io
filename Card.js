@@ -1,4 +1,4 @@
-function Card({ card }) {
+function Card({ card, selectable = false, selected = false }) {
 
   return (
     <div style={{
@@ -8,7 +8,7 @@ function Card({ card }) {
       borderRadius: "8px",
       backgroundColor: "#fff"
     }}>
-      <p>{`${card.number.name} of ${card.suit.name}`}</p>
+      <p>{`${selected ? '[ ] ' : ''}${card.number.name} of ${card.suit.name}${selected ? ' (selected)' : ''}`}</p>
     </div>
   );
 }
