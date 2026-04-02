@@ -139,7 +139,7 @@ function App() {
 
   const isValidCardSelection = card => {
     const currentSelectedSum = selectedCards.reduce((acc, curr) => {
-      return acc + curr.price;
+      return acc + curr.attack;
     }, 0);
     return currentSelectedSum + card.number.attack <= 10;
   }
