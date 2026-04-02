@@ -9,7 +9,7 @@ function Card({ card, selectable = false , selected = false }) {
       backgroundColor: "#fff",
       width: "150px",
       height: "150px",
-      display: "inline"
+      display: "inline-block"
     }}>
       <p>{`${selectable ? '[ ] ' : ''}${card.number.name} of ${card.suit.name}${selected ? ' (selected)' : ''}`}</p>
     </div>
