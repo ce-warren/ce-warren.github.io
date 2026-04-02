@@ -51,11 +51,19 @@ function App() {
   //// FUNCTIONS ////
 
   const shuffle = cards => {
-    let arr = [];
-    for (let i = 0; i < n; i++) {
-      arr.push(cards[i], cards[i + n]);
+    let currentIndex = cards.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+
+      // Pick a remaining element...
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [cards[currentIndex], cards[randomIndex]] = [
+        cards[randomIndex], cards[currentIndex]];
     }
-    return arr;
   }
 
   const initializeDecks = () => {
@@ -67,7 +75,8 @@ function App() {
       startingDeck.push({ number, suit: SUIT.DIAMOND });
       startingDeck.push({ number, suit: SUIT.CLUB });
     });
-    setDeck(shuffle(startingNumbers));
+    shuffle(startingDeck);
+    setDeck(startingDeck);
 
     const jacks = [
       { number: NUMBER.JACK, suit: SUIT.SPADE },
@@ -75,19 +84,22 @@ function App() {
       { number: NUMBER.JACK, suit: SUIT.DIAMOND },
       { number: NUMBER.JACK, suit: SUIT.CLUB },
     ];
+    shuffle(jacks);
     const queens = [
       { number: NUMBER.QUEEN, suit: SUIT.SPADE },
       { number: NUMBER.QUEEN, suit: SUIT.HEART },
       { number: NUMBER.QUEEN, suit: SUIT.DIAMOND },
       { number: NUMBER.QUEEN, suit: SUIT.CLUB },
     ];
+    shuffle(queens);
     const kings = [
       { number: NUMBER.KING, suit: SUIT.SPADE },
       { number: NUMBER.KING, suit: SUIT.HEART },
       { number: NUMBER.KING, suit: SUIT.DIAMOND },
       { number: NUMBER.KING, suit: SUIT.CLUB },
     ];
-    setEnemies([...shuffle(jacks), ...shuffle(queens), ...shuffle(kings)]);
+    shuffle(kings)
+    setEnemies([...jacks, ...queens, ...kings]);
   }
 
   //// SETUP ////
