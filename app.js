@@ -187,11 +187,6 @@ function App() {
             Start Battle
           </button>
         )}
-        {currentEnemy && (
-          <div>
-            <Card card={currentEnemy} />
-          </div>
-        )}
         <div>
           <p>Stats</p>
           <p>{`Deck: ${deck.length}`}</p>
@@ -200,7 +195,26 @@ function App() {
           <p>{`Enemy health: ${enemyHealth}`}</p>
           <p>{`Shield: ${shield}`}</p>
         </div>
-        
+        {currentEnemy && (
+          <div>
+            <Card card={currentEnemy} />
+          </div>
+        )}
+        {phase === PHASE.REPLENISH && (
+          <div>
+            <p>replenishing buttons</p>
+          <div>
+        )}
+        {phase === PHASE.REPLENISH || phase === PHASE.ATTACK || phase === PHASE.DEFEND && (
+          <div>
+            <p>Played cards</p>
+            {playCards.map(card => (
+              <Card
+                card={card}
+               />
+            ))}
+          <div>
+        )}
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
