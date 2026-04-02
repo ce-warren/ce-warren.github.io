@@ -60,11 +60,12 @@ function App() {
 
   const initializeDecks = () => {
     const startingNumbers = [NUMBER.ACE, NUMBER.TWO, NUMBER.THREE, NUMBER.FOUR, NUMBER.FIVE, NUMBER.SIX, NUMBER.SEVEN, NUMBER.EIGHT, NUMBER.NINE, NUMBER.TEN];
+    const startingDeck = [];
     startingNumbers.forEach(number => {
-      deck.add({ number, suit: SUIT.SPADE });
-      deck.add({ number, suit: SUIT.HEART });
-      deck.add({ number, suit: SUIT.DIAMOND });
-      deck.add({ number, suit: SUIT.CLUB });
+      startingDeck.push({ number, suit: SUIT.SPADE });
+      startingDeck.push({ number, suit: SUIT.HEART });
+      startingDeck.push({ number, suit: SUIT.DIAMOND });
+      startingDeck.push({ number, suit: SUIT.CLUB });
     });
     setDeck(shuffle(startingNumbers));
 
