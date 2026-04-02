@@ -108,7 +108,7 @@ function App() {
 
   const startBattle = () => {
     setCurrentEnemy(enemies[0]);
-    setEnemies(enemies[1:]);
+    setEnemies(enemies.slice(1));
   }
 
   //// SETUP ////
