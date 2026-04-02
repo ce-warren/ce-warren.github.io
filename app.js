@@ -48,6 +48,8 @@ function App() {
   const [enemyHealth, setEnemyHealth] = useState(0);
   const [shield, setShield] = useState(0);
 
+  const [newBattleAvailable, setNewBattleAvailable] = useState(true);
+
   //// FUNCTIONS ////
 
   const shuffle = cards => {
@@ -102,35 +104,51 @@ function App() {
     setEnemies([...jacks, ...queens, ...kings]);
   }
 
-  const dealHands = () => {
+  const deal = handIndex => {
+    if (deck.length === 0) {
+      return
+    }
+    const newCard = deck[0];
+    setDeck(deck.slice(1));
+    HAND_TRACKER[handIndex].setHand([...HAND_TRACKER[handIndex].hand, newCard]);
+  }
 
+  const dealInitialHands = () => {
+    HAND_TRACKER.forEach((hand, index) => {
+      deal(index);
+      deal(index);
+      deal(index);
+      deal(index);
+      deal(index);
+    });
   }
 
   const startBattle = () => {
-    setCurrentEnemy(enemies[0]);
+    const newEnemy = enemies[0];
+    setCurrentEnemy(newEnemy);
     setEnemies(enemies.slice(1));
+    setEnemyHealth(newEnemy.number.attack);
   }
 
   //// SETUP ////
 
   useEffect(() => {
     initializeDecks();
-    dealHands();
+    dealInitialHands();
   }, []);
 
   return (
     <div className="container">
       <div className="card">
         <h1>Regicide</h1>
-        <button
-          onClick={() => startBattle()}
-        >
-          Start
-        </button>
-        {enemies.map(enemy => (
-          <p>{`${enemy.number.name} of ${enemy.suit.name}`}</p>
-        ))}
-        {currentEnemy && (
+        {newBattleAvailable && (
+          <button
+            onClick={() => startBattle()}
+          >
+            Start
+          </button>
+        )}
+        {!!currentEnemy && (
           <div>
             <p>{`${currentEnemy.number.name} of ${currentEnemy.suit.name}`}</p>
           </div>
@@ -144,7 +162,10 @@ function App() {
           <p>{`Shield: ${shield}`}</p>
         </div>
         <div>
-          <p>Hand</p>
+          <p>{Hand - ${HAND_TRACKER[currentHand].name}}</p>
+          {HAND_TRACKER[currentHand].hand.map(card => (
+            <p>{`${card.number.name} of ${card.suit.name}`}</p>
+          ))}
         </div>
       </div>
     </div>
