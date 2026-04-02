@@ -105,11 +105,15 @@ function App() {
   }
 
   const deal = handIndex => {
+    console.log('dealing')
     if (deck.length === 0) {
+      console.log('cancelling')
       return
     }
     const newCard = deck[0];
+    console.log(newCard);
     setDeck(deck.slice(1));
+    console.log([...HAND_TRACKER[handIndex].hand, newCard]);
     HAND_TRACKER[handIndex].setHand([...HAND_TRACKER[handIndex].hand, newCard]);
   }
 
