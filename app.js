@@ -159,7 +159,7 @@ function App() {
     <div className="container">
       <div className="card">
         <h1>Regicide</h1>
-        {!phase === PHASE.START && (
+        {phase === PHASE.START && (
           <button
             onClick={() => {
               dealInitialHands();
