@@ -267,17 +267,22 @@ function App() {
                 {`Restore ${getAttackValue()} cards`}
               </button>
             )}
-            {!restoreAvailable && drawAvailable (
+            {!restoreAvailable && drawAvailable && (
               <button onClick={() => retoreFromDiscard()}>
                 Begin draw
               </button>
             )}
-            {!restoreAvailable && !drawAvailable (
+            {!restoreAvailable && !drawAvailable && (
               <button onClick={() => endReplenishment()}>
                 No replenishments available
               </button>
             )}
           </div>
+        )}
+        {phase === PHASE.ATTACK && (
+          <div>
+           <p>Attack</p>
+          <div>
         )}
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
