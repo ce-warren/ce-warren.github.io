@@ -50,6 +50,7 @@ function App() {
   ];
 
   const [selectedCards, setSelectedCards] = useState([]);
+  const [playedCards, setPlayedCards] = useState([]);
 
   const [deck, setDeck] = useState([]);
   const [discardPile, setDiscardPile] = useState([]);
@@ -59,6 +60,7 @@ function App() {
   const [enemyHealth, setEnemyHealth] = useState(0);
   const [shield, setShield] = useState(0);
 
+  const [gameStarted, setGameStarted] = useState(false);
   const [phase, setPhase] = useState(PHASE.START);
   const [newBattleAvailable, setNewBattleAvailable] = useState(false);
 
@@ -143,7 +145,15 @@ function App() {
   }
 
   const playCards = () => {
+    setPlayedCards(selectedCards);
+    HAND_TRACKER[currentHand].setHand(HAND_TRACKER[currentHand].hand.filter(card => selectedCards.includes(card)));
+    setSelectedCards([]);
+    setPhase(PHASE.REPLENISH);
+  }
 
+  const yield = () => {
+    setSelectedCards([]);
+    setPhase(PHASE.DEFEND)
   }
 
   //// SETUP ////
@@ -156,12 +166,12 @@ function App() {
     <div className="container">
       <div className="card">
         <h1>Regicide</h1>
-        {phase === PHASE.START && (
+        {!gameStarted && (
           <button
             onClick={() => {
               dealInitialHands();
               setNewBattleAvailable(true);
-              setPhase(PHASE.PLAY);
+              setGameStarted(true);
             }}
           >
             Start
@@ -169,7 +179,10 @@ function App() {
         )}
         {newBattleAvailable && (
           <button
-            onClick={() => startBattle()}
+            onClick={() => {
+              startBattle()
+              setPhase(PHASE.PLAY);
+            }}
           >
             Start Battle
           </button>
@@ -187,6 +200,21 @@ function App() {
           <p>{`Enemy health: ${enemyHealth}`}</p>
           <p>{`Shield: ${shield}`}</p>
         </div>
+        {phase === PHASE.REPLENISH && (
+          <div>
+            <p>replenishing buttons</p>
+          <div>
+        )}
+        {(phase === PHASE.REPLENISH || phase === PHASE.ATTACK || phase === PHASE.DEFEND) && (
+          <div>
+            <p>Played cards</p>
+            {playCards.map(card => (
+              <Card
+                card={card}
+               />
+            ))}
+          <div>
+        )}
         <div>
           <p>{`Hand - ${HAND_TRACKER[currentHand].name}`}</p>
           {HAND_TRACKER[currentHand].hand.map(card => (
@@ -227,9 +255,7 @@ function App() {
             >
               Play
             </button>
-            <button
-              onClick={() => setPhase(PHASE.DEFEND)}
-            >
+            <button onClick={() => yield()} >
               Yield
             </button>
           </div>

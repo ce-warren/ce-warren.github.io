@@ -1,4 +1,4 @@
-function Card({ card, selectable , selected }) {
+function Card({ card, selectable = false , selected = false }) {
 
   return (
     <div style={{
