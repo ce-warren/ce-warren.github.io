@@ -204,16 +204,11 @@ function App() {
                   />
                 </button>
               ) : (
-                <button
-                  onClick={() => ()}
-                  disabled={true}
-                >
-                  <Card
-                    card={card}
-                    selectable={false}
-                    selected={false}
-                  />
-                </button>
+                <Card
+                  card={card}
+                  selectable={false}
+                  selected={false}
+                />
               )
           ))}
         </div>
